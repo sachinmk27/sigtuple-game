@@ -56,8 +56,8 @@ export class AppComponent implements OnInit {
   startGame(){
     this.resetBoard();
     this.currentScore = 0;
-    this.startTimer(this.GAME_TIME_IN_SECONDS);
     this.currentTime = this.GAME_TIME_IN_SECONDS;
+    this.startTimer(this.GAME_TIME_IN_SECONDS);
   }
 
 
@@ -69,19 +69,19 @@ export class AppComponent implements OnInit {
   }
 
   startTimer(intervalInSeconds: number){
-    this.currentTime = intervalInSeconds;
-    for(let i = 0; i < intervalInSeconds; i++){
-      this.timers.push(setTimeout(() => {
-        this.currentTime -= 1;
-        this.currentCell = this.getRandomCellCoordinates();
-      }, 1 * 1000 * i));
-    }
     let gameTimer = setTimeout(() => {
       alert('‘Game Over !!!’')
       this.resetGame();
       this.startGame();
     }, intervalInSeconds * 1000);
     this.timers.push(gameTimer);
+    for(let i = 0; i < intervalInSeconds; i++){
+      this.timers.push(setTimeout(() => {
+        this.currentTime -= 1;
+        this.currentCell = this.getRandomCellCoordinates();
+      }, 1 * 1000 * i));
+    }
+    
   }
 
   isCurrentCell(cell: any){
@@ -99,8 +99,9 @@ export class AppComponent implements OnInit {
     this.checkForHighScore();
     this.getHighScore();
     this.timers.map((id) => {
-      clearInterval(id);
+      clearTimeout(id);
     });
+    this.timers = [];
   }
 
   getHighScore(){
