@@ -1,0 +1,7 @@
+.cell {
+    margin: 25px;
+}
+
+.current-cell {
+    background-color: green;
+}
